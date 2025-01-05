@@ -11,7 +11,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
   entry_points:
@@ -19,16 +19,18 @@ build:
 
 requirements:
   host:
-    - python >=3
+    - python {{ python_min }}
     - pip
     - docopt
   run:
-    - python >=3
+    - python >={{ python_min }}
     - docopt
     - click
     - ghostscript
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - pdfshrink
   commands:
